@@ -4,13 +4,6 @@ import { getEmbedding } from "./filldata/embedding.js";
 
 dotenv.config();
 
-function cosineSimilarity(vecA: number[], vecB: number[]): number {
-  const dotProduct = vecA.reduce((acc, val, i) => acc + val * vecB[i], 0);
-  const normA = Math.sqrt(vecA.reduce((acc, val) => acc + val * val, 0));
-  const normB = Math.sqrt(vecB.reduce((acc, val) => acc + val * val, 0));
-  return dotProduct / (normA * normB);
-}
-
 async function queryVectorForContext() {
   console.log("Started Querying for Context...");
 
@@ -51,26 +44,10 @@ async function queryVectorForContext() {
 
     const results = await cursor.toArray();
 
-     const threshold = 0.5; // 50% similarity
-    const filteredResults = results.filter((doc) => {
-      if (!doc.$vector) return false;
-      const similarity = cosineSimilarity(embedding, doc.$vector);
-      return similarity >= threshold;
-    });
-
-    if (filteredResults.length === 0) {
-      console.log("No results found above the similarity threshold.");
-    } else {
-      console.log("Filtered results (≥ 50% similarity):");
-      for (const doc of filteredResults) {
-        console.log(JSON.stringify(doc, null, 2));
-      }
+    console.log("Query results:");
+    for (const doc of results) {
+      console.log(JSON.stringify(doc, null, 2));
     }
-
-//     console.log("Query results:");
-//     for (const doc of results) {
-//       console.log(JSON.stringify(doc, null, 2));
-//     }
   } catch (err) {
     console.error("Error querying AstraDB with vector:", err);
   }
