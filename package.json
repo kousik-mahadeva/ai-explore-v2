@@ -1,0 +1,31 @@
+{
+  "name": "rag",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts",
+    "embed": "node --loader ts-node/esm src/vector_index.ts",
+    "query": "node --loader ts-node/esm src/vector_query.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@datastax/astra-db-ts": "^1.5.0",
+    "@google/genai": "^1.0.0",
+    "@types/node": "^24.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@langchain/community": "^0.3.50",
+    "@langchain/core": "^0.3.68",
+    "@langchain/google-genai": "^0.2.16",
+    "@langchain/google-vertexai": "^0.2.16",
+    "dotenv": "^16.6.1",
+    "langchain": "^0.3.30"
+  }
+}
